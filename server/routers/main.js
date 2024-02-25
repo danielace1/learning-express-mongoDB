@@ -1,5 +1,10 @@
 import express from "express";
-import userRouter from "./users.js";
+import {
+  createOperation,
+  getAllData,
+  updateData,
+  deleteDataById,
+} from "../models/userRequest.js";
 
 const router = express.Router();
 
@@ -10,15 +15,59 @@ router.get("/", (req, res) => {
   });
 });
 
-router.get("/about", (req, res) => {
-  return res.json({ message: "Welcome to the About Page" });
+// create operation
+router.post("/create", async (req, res) => {
+  const clientData = { ...req.body, created_at: Date.now() };
+
+  try {
+    const creation = await createOperation(clientData);
+    console.log("created", creation);
+    return res.json(clientData);
+  } catch (error) {
+    if (error.name === "ValidationError") {
+      const message = Object.values(error.errors).map(
+        (values) => values.message
+      );
+      return res.status(400).json({
+        error: message,
+      });
+    }
+    res.status(400).json(error.message);
+  }
 });
 
-router.get("/about/:user", (req, res) => {
-  console.log(req.params.user);
-  return res.json({ message: `Hi there! ${req.params.user}` });
+// read operation
+router.get("/read", async (req, res) => {
+  const userData = await getAllData();
+
+  console.log(userData);
+  return res.json(userData);
 });
 
-router.use("/users", userRouter);
+// update operation
+router.put("/read/:id", async (req, res) => {
+  const docId = req.params.id;
+
+  // validate req.body
+  if (docId) {
+    const updatedResult = await updateData(docId, req.body);
+
+    return res.json(updatedResult);
+  }
+  return res.status(403);
+});
+
+// delete operation
+router.delete("/read/:id", async (req, res) => {
+  const docId = req.params.id;
+
+  // validate req.body
+  if (docId) {
+    await deleteDataById(docId);
+
+    return res.json(true);
+  }
+  return res.status(403);
+});
 
 export default router;

@@ -1,12 +1,14 @@
 import express from "express";
 import router from "./routers/main.js";
-import userRouter from "./routers/users.js";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
 
 const app = express();
-
 const SERVER_PORT = 3000;
+dotenv.config();
 
-app.use(userRouter);
+// should be before the routing
+app.use(express.json());
 app.use(router);
 
 router.get("*", (req, res) => {
@@ -19,3 +21,19 @@ router.get("*", (req, res) => {
 app.listen(SERVER_PORT, () => {
   console.log("server listening on port " + SERVER_PORT);
 });
+
+// using mongoose to connect to the MONGODB server
+// install mongoose and env packages
+// create .env and .env.example files
+if (process.env.MONGODB_URL) {
+  try {
+    mongoose.connect(process.env.MONGODB_URL);
+    console.log("Connected to MongoDB");
+  } catch (error) {
+    console.log(err);
+  }
+} else {
+  console.error("ENV is not set");
+}
+
+// extracting URL
