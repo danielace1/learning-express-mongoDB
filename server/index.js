@@ -1,5 +1,5 @@
 import express from "express";
-import router from "./routers/main.js";
+import router from "./routers/index.router.js";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 
@@ -12,10 +12,7 @@ app.use(express.json());
 app.use(router);
 
 router.get("*", (req, res) => {
-  return res.json({
-    success: false,
-    message: "This is the 404 page",
-  });
+  return res.status(404);
 });
 
 app.listen(SERVER_PORT, () => {

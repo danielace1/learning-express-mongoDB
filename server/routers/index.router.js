@@ -4,7 +4,7 @@ import {
   getAllData,
   updateData,
   deleteDataById,
-} from "../models/userRequest.js";
+} from "../services/user.services.js";
 
 const router = express.Router();
 
