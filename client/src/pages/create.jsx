@@ -24,14 +24,17 @@ const Create = () => {
   const navigate = useNavigate();
 
   const sendInfoToServer = async (data) => {
-    const response = await fetch("http://localhost:3000/create", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    const response = await fetch(
+      "https://learning-express-mongodb.onrender.com/create",
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
 
     if (response.status === 200) {
       alert("Successfully created!");

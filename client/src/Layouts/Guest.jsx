@@ -5,7 +5,7 @@ const GuestLayout = () => {
   return (
     <>
       <TheNavbar />
-      <main className="bg-gray-100 min-h-screen px-20 py-14">
+      <main className="bg-gray-100 min-h-screen px-8 sm:px-20 py-14">
         <Outlet />
       </main>
     </>

@@ -5,7 +5,9 @@ const App = () => {
   const [data, setData] = useState([]);
 
   async function getData() {
-    const Url = await fetch("http://localhost:3000/read");
+    const Url = await fetch(
+      "https://learning-express-mongodb.onrender.com/read"
+    );
     const dataFromDB = await Url.json();
     setData(dataFromDB);
   }
@@ -15,12 +17,12 @@ const App = () => {
   }, []);
 
   return (
-    <div className="space-y-20">
-      <section className="grid grid-cols-2 items-center gap-x-3">
+    <div className="space-y-10 sm:space-y-20">
+      <section className="grid sm:grid-cols-2 items-center gap-x-3">
         <div className="mb-20">
-          <h1 className="font-semibold text-5xl mb-2">
+          <h1 className="font-semibold text-3xl sm:text-5xl mb-2">
             Learning{" "}
-            <span className="animate-text bg-gradient-to-r from-green-500 via-sky-400 to-emerald-500 bg-clip-text text-transparent text-5xl font-black">
+            <span className="animate-text bg-gradient-to-r from-green-500 via-sky-400 to-emerald-500 bg-clip-text text-transparent font-black">
               MERN
             </span>{" "}
             Stack
@@ -35,7 +37,7 @@ const App = () => {
           </p>
         </div>
         <div>
-          <img src="/learningMERN.svg" alt="MERN" className="ml-10" />
+          <img src="/learningMERN.svg" alt="MERN" className="sm:ml-10 ml-3" />
         </div>
       </section>
 
@@ -50,7 +52,7 @@ const App = () => {
           </div>
         )}
 
-        <div className="flex items-center justify-between">
+        <div className="sm:flex items-center sm:justify-between">
           <div>
             <h1 className="mb-3 text-2xl font-semibold text-center underline">
               Data Coming from DB
