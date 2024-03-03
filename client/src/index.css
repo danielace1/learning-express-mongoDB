@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+nav .active {
+  @apply bg-sky-600 rounded px-3 py-1 text-white font-semibold transition-all;
+}
